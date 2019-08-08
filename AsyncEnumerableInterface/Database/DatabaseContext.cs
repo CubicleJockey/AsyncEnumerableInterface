@@ -1,0 +1,14 @@
+﻿using AsyncEnumerableInterface.Database.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace AsyncEnumerableInterface.Database
+{
+    public class DatabaseContext : DbContext
+    {
+        public DatabaseContext(DbContextOptions options) 
+            : base(options) { }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Post> Posts { get; set; }
+    }
+}
