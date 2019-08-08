@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
-using AsyncEnumerableInterface.Database.Entities;
-using Bogus;
-using Microsoft.EntityFrameworkCore;
 
 namespace AsyncEnumerableInterface.Database
 {

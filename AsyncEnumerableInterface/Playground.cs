@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using AsyncEnumerableInterface.Apis;
 using AsyncEnumerableInterface.Database;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AsyncEnumerableInterface
 {
@@ -33,6 +33,18 @@ namespace AsyncEnumerableInterface
                 database.Users.Count().Should().Be(InMemoryConfiguration.TotalUsers);
                 database.Posts.Count().Should().Be(InMemoryConfiguration.TotalPosts);
             }
+        }
+
+
+        [TestMethod]
+        public async Task GetAllUsers()
+        {
+            var userApi = new UserApi(database);
+
+            //foreach (var user in await userApi.GetAllUsers().ToArray())
+            //{
+            //    Console.WriteLine(user);
+            //}
         }
     }
 }
