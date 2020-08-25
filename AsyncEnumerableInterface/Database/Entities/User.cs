@@ -6,8 +6,8 @@ namespace AsyncEnumerableInterface.Database.Entities
     public class User
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
 
         #region Navaigation Properities
 
@@ -16,8 +16,6 @@ namespace AsyncEnumerableInterface.Database.Entities
         #endregion Navidation Properties
 
         #region Overrides
-
-        #region Overrides of Object
 
         /// <inheritdoc />
         public override string ToString()
@@ -30,8 +28,6 @@ namespace AsyncEnumerableInterface.Database.Entities
 
             return sb.ToString();
         }
-
-        #endregion
 
         #endregion Overrides
     }
