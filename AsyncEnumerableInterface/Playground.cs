@@ -1,4 +1,5 @@
-﻿using AsyncEnumerableInterface.Apis;
+﻿using System;
+using AsyncEnumerableInterface.Apis;
 using AsyncEnumerableInterface.Database;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -41,10 +42,10 @@ namespace AsyncEnumerableInterface
         {
             var userApi = new UserApi(database);
 
-            //foreach (var user in await userApi.GetAllUsers().ToArray())
-            //{
-            //    Console.WriteLine(user);
-            //}
+            await foreach (var user in userApi.GetAllUsers())
+            {
+                Console.WriteLine(user);
+            }
         }
     }
 }

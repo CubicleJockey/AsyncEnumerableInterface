@@ -7,8 +7,8 @@ namespace AsyncEnumerableInterface.Database
 {
     public static class MockDataGenerator
     {
-        private static Faker<User> userFaker;
-        private static Faker<Post> postFaker;
+        private static Faker<User> userFaker = null!;
+        private static Faker<Post> postFaker = null!;
 
         static MockDataGenerator()
         {

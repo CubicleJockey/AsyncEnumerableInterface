@@ -21,7 +21,7 @@ namespace AsyncEnumerableInterface.Apis
 
         public async IAsyncEnumerable<User> GetAllUsers()
         {
-            using (database)
+            await using (database)
             {
                 foreach (var user in await database.Users.ToArrayAsync())
                 {
