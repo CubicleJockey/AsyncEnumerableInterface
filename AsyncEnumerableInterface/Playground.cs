@@ -6,17 +6,22 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
 
+using static System.Console;
+
 namespace AsyncEnumerableInterface
 {
     [TestClass]
     public class Playground
     {
         private DatabaseContext database;
+        private UserApi users;
 
         public Playground()
         {
             database = new DatabaseContext(InMemoryConfiguration.Configure());
             InMemoryConfiguration.SetupData(database);
+
+            users = new UserApi(database);
         }
 
         [TestInitialize]
@@ -24,11 +29,13 @@ namespace AsyncEnumerableInterface
         {
             //Setup connection per tests
             database = new DatabaseContext(InMemoryConfiguration.Configure());
+            users = new UserApi(database);
         }
 
         [TestMethod]
         public void CheckInMemorySetup()
         {
+            //Assume defaults used here.
             using (database)
             {
                 database.Users.Count().Should().Be(InMemoryConfiguration.TotalUsers);
@@ -40,12 +47,34 @@ namespace AsyncEnumerableInterface
         [TestMethod]
         public async Task GetAllUsers()
         {
-            var userApi = new UserApi(database);
-
-            await foreach (var user in userApi.GetAllUsers())
+            await foreach (var user in users.GetAllUsers())
             {
-                Console.WriteLine(user);
+                WriteLine(user);
             }
+        }
+
+        [TestMethod]
+        public async Task GetAllPosts()
+        {
+            await foreach (var post in users.GetAllPosts())
+            {
+                WriteLine(post);
+            }
+        }
+
+        [DataRow(1)]
+        [DataRow(5)]
+        [DataTestMethod]
+        public async Task GetPostForUser(int userId)
+        {
+            WriteLine($"Getting posts for User Id: [{userId}]");
+
+            await foreach (var post in users.GetUserPost(userId))
+            {
+                WriteLine(post);
+            }
+
+            WriteLine("-------------------------");
         }
     }
 }

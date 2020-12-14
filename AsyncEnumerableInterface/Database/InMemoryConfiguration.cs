@@ -21,14 +21,17 @@ namespace AsyncEnumerableInterface.Database
         public static DbContextOptions Configure() => new DbContextOptionsBuilder().UseInMemoryDatabase("PostDb").Options;
 
 
-        public static void SetupData(DatabaseContext database)
+        public static void SetupData(DatabaseContext database, int? totalUsers = null, int? totalPosts = null)
         {
+            totalUsers ??= TotalUsers;
+            totalPosts ??= TotalPosts;
+
             //Create users and gather all their Ids
-            var users = MockDataGenerator.GenerateUserResults(TotalUsers).ToArray();
+            var users = MockDataGenerator.GenerateUserResults(totalUsers.Value).ToArray();
             var allUserIds = users.Select(user => user.Id);
 
             //Generate posts and then assign users to those posts
-            var posts = MockDataGenerator.GeneratePostResults(TotalPosts).ToList();
+            var posts = MockDataGenerator.GeneratePostResults(totalPosts.Value).ToList();
             posts.ForEach(post => post.UserId = random.Next(1, allUserIds.Max()));
             
             using (database)

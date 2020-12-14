@@ -1,4 +1,6 @@
-﻿namespace AsyncEnumerableInterface.Database.Entities
+﻿using System.Text;
+
+namespace AsyncEnumerableInterface.Database.Entities
 {
     public class Post
     {
@@ -11,5 +13,15 @@
         public User User { get; set; } = null!;
 
         #endregion Navigation Properties
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"User Id: [{UserId}]");
+            sb.AppendLine($"Content: [{Content}]");
+
+            return sb.ToString();
+        }
     }
 }

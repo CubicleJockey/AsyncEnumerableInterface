@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AsyncEnumerableInterface.Database.Entities;
 
 namespace AsyncEnumerableInterface.Apis
@@ -26,6 +27,28 @@ namespace AsyncEnumerableInterface.Apis
                 foreach (var user in await database.Users.ToArrayAsync())
                 {
                     yield return user;
+                }
+            }
+        }
+
+        public async IAsyncEnumerable<Post> GetAllPosts()
+        {
+            await using (database)
+            {
+                foreach (var post in await database.Posts.ToArrayAsync())
+                {
+                    yield return post;
+                }
+            }
+        }
+
+        public async IAsyncEnumerable<Post> GetUserPost(int userId)
+        {
+            await using (database)
+            {
+                foreach(var post in database.Posts.Where(post => post.UserId == userId))
+                {
+                    yield return post;
                 }
             }
         }
