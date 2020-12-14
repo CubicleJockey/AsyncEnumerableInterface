@@ -8,7 +8,7 @@ namespace AsyncEnumerableInterface.Database
         public DatabaseContext(DbContextOptions options) 
             : base(options) { }
 
-        public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Post> Posts { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Post> Posts { get; set; } = null!;
     }
 }
